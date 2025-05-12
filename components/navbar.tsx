@@ -40,25 +40,23 @@ export default function Navbar() {
           >
             Home
           </Link>
+          <Link 
+            href="/advice" 
+            className={`text-sm transition-colors hover:text-primary ${
+              isActive("/advice") ? "font-bold underline underline-offset-4" : ""
+            }`}
+          >
+            Bodybuilding Advice
+          </Link>
           {!isLoading && user && (
-            <>
-              <Link 
-                href="/advice" 
-                className={`text-sm transition-colors hover:text-primary ${
-                  isActive("/advice") ? "font-bold underline underline-offset-4" : ""
-                }`}
-              >
-                Bodybuilding Advice
-              </Link>
-              <Link 
-                href="/factory" 
-                className={`text-sm transition-colors hover:text-primary ${
-                  isActive("/factory") ? "font-bold underline underline-offset-4" : ""
-                }`}
-              >
-                Protein Factory
-              </Link>
-            </>
+            <Link 
+              href="/factory" 
+              className={`text-sm transition-colors hover:text-primary ${
+                isActive("/factory") ? "font-bold underline underline-offset-4" : ""
+              }`}
+            >
+              Protein Factory
+            </Link>
           )}
           {!isLoading && (
             <>
