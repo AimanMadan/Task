@@ -39,7 +39,7 @@ A modern web application that provides personalized bodybuilding advice and prot
   - Environment variable management
   - Production-ready configuration
 
-## 📚 What I Learned
+##  What I Learned
 
 ### Technical Learnings
 1. **Modern Authentication**
@@ -62,7 +62,7 @@ A modern web application that provides personalized bodybuilding advice and prot
 - Error handling and user feedback
 - Performance optimization
 
-## 🚀 What I'd Improve
+##  What I'd Improve
 
 ### Technical Improvements
 1. **Features**
@@ -76,7 +76,7 @@ A modern web application that provides personalized bodybuilding advice and prot
 
 
 
-## 🛠️ Getting Started
+##  Getting Started
 
 1. Clone the repository
 ```bash
