@@ -1,14 +1,16 @@
 "use client"
 
+import { Suspense } from "react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useSupabase } from "@/lib/supabase-provider"
 import { Dumbbell, Loader2 } from "lucide-react"
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { supabase, user } = useSupabase()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -21,10 +23,11 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     try {
+      const redirectTo = searchParams.get("redirectedFrom") || "/"
       await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "https://alloi-ai.vercel.app/auth/callback",
+          redirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`,
         },
       })
     } catch (error) {
@@ -90,5 +93,13 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }
