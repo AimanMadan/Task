@@ -10,8 +10,8 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  // If user is not signed in and the current path is /advice or /factory
-  if (!session && (req.nextUrl.pathname.startsWith('/advice') || req.nextUrl.pathname.startsWith('/factory'))) {
+  // If user is not signed in and the current path is /factory
+  if (!session && req.nextUrl.pathname.startsWith('/factory')) {
     const redirectUrl = req.nextUrl.clone()
     redirectUrl.pathname = '/login'
     redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname)
@@ -22,5 +22,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/advice/:path*', '/factory/:path*'],
+  matcher: ['/factory/:path*'],
 }
