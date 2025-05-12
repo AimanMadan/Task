@@ -80,7 +80,7 @@ A modern web application that provides personalized bodybuilding advice and prot
 
 1. Clone the repository
 ```bash
-git clone https://github.com/AimanMadan/alloi.ai.git
+git clone https://github.com/AimanMadan/Task.git
 ```
 
 2. Install dependencies
