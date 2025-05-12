@@ -1,4 +1,4 @@
-# Allio.ai Challenge  
+# Challenge  
 
 A modern web application that provides personalized bodybuilding advice and protein factory simulation, built with Next.js, Supabase.
 
