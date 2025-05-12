@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/button"
 import { useSupabase } from "@/lib/supabase-provider"
 import { useState, useEffect } from "react"
 import { Dumbbell } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
   const pathname = usePathname()
   const { supabase, user } = useSupabase()
   const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     setIsLoading(false)
@@ -18,6 +20,7 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
+    router.refresh()
   }
 
   const isActive = (path: string) => pathname === path

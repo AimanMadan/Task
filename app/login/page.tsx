@@ -30,6 +30,7 @@ function LoginForm() {
           redirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`,
         },
       })
+      router.refresh()
     } catch (error) {
       console.error("Error signing in:", error)
       setIsLoading(false)
