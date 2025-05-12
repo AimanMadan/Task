@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Brain, Loader2 } from "lucide-react"
+import ReactMarkdown from "react-markdown"
 
 export default function AdvicePage() {
   const [question, setQuestion] = useState("")
@@ -109,7 +110,9 @@ export default function AdvicePage() {
           {answer && (
             <CardFooter className="border-t pt-6 flex-col items-start">
               <h3 className="font-semibold text-lg mb-2">Advice:</h3>
-              <div className="whitespace-pre-wrap">{answer}</div>
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown>{answer}</ReactMarkdown>
+              </div>
             </CardFooter>
           )}
         </Card>
