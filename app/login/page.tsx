@@ -17,6 +17,7 @@ function LoginForm() {
   // Redirect if already logged in
   if (user) {
     router.push("/")
+    router.refresh()
     return null
   }
 
