@@ -5,6 +5,7 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import type { SupabaseClient, User } from "@supabase/supabase-js"
+import { useRouter } from "next/navigation"
 
 type SupabaseContext = {
   supabase: SupabaseClient
@@ -20,12 +21,14 @@ export function SupabaseProvider({
 }) {
   const [supabase] = useState(() => createClientComponentClient())
   const [user, setUser] = useState<User | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user ?? null)
+      router.refresh()
     })
 
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -35,7 +38,7 @@ export function SupabaseProvider({
     return () => {
       subscription.unsubscribe()
     }
-  }, [supabase])
+  }, [supabase, router])
 
   return <Context.Provider value={{ supabase, user }}>{children}</Context.Provider>
 }
