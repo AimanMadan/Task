@@ -11,17 +11,9 @@ A modern web application that provides personalized bodybuilding advice and prot
    - Managing protected routes using supabase: adding keys in supabase, adding callback URL in supabase and google cloud auth
    - Versel deployment: I have learned how easy it is to use Versel for deployment and it's safe deployment updates when doing pull requests in Github.
    - Route handlers: middleware routing 
-   - Dark mode implementation 
-
-
-##  What I'd Improve
-
-### Technical Improvements
-
-   - Add user profiles and progress tracking
-   - Implement workout logging
-   - Add more interactive visualizations
-   - Improve accessibility
+   - Dark mode implementation.
+   - Using chat history context to generate better responses.
+   - how to apply thinking and show real time updates for my thinking layer.
 
 
 
