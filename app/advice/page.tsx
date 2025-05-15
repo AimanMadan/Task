@@ -9,14 +9,22 @@ import ReactMarkdown from "react-markdown"
 
 type ThinkingPhase = "idle" | "analyzing" | "evaluating" | "done"
 
+type ChatMessage = {
+  role: string
+  content: string
+  timestamp?: number
+  responseTime?: number
+}
+
 export default function AdvicePage() {
   const [question, setQuestion] = useState("")
-  const [chatHistory, setChatHistory] = useState<Array<{ role: string; content: string }>>([])
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [thinkingPhase, setThinkingPhase] = useState<ThinkingPhase>("idle")
   const [error, setError] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
+  const startTimeRef = useRef<number>(0)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -33,9 +41,14 @@ export default function AdvicePage() {
     setIsLoading(true)
     setError("")
     setThinkingPhase("analyzing")
+    startTimeRef.current = Date.now()
 
     // Add user message immediately
-    const userMessage = { role: "user", content: question }
+    const userMessage: ChatMessage = { 
+      role: "user", 
+      content: question,
+      timestamp: Date.now()
+    }
     setChatHistory(prev => [...prev, userMessage])
     setQuestion("")
 
@@ -71,7 +84,13 @@ export default function AdvicePage() {
             setThinkingPhase(data.phase)
           }
           if (data.answer) {
-            setChatHistory(prev => [...prev, { role: "assistant", content: data.answer }])
+            const responseTime = Date.now() - startTimeRef.current
+            setChatHistory(prev => [...prev, { 
+              role: "assistant", 
+              content: data.answer,
+              timestamp: Date.now(),
+              responseTime
+            }])
           }
           if (data.error) {
             setError(data.error)
@@ -175,6 +194,11 @@ export default function AdvicePage() {
                   <div className={`prose prose-sm dark:prose-invert max-w-none ${msg.role === "user" ? "!text-white" : ""}`}>
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                   </div>
+                  {msg.role === "assistant" && msg.responseTime && (
+                    <div className="text-xs text-muted-foreground mt-2">
+                      Response time: {(msg.responseTime / 1000).toFixed(1)}s
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
